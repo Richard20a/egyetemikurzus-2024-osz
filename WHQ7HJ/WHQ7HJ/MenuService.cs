@@ -9,7 +9,7 @@ namespace WHQ7HJ
 {
     internal class MenuService
     {
-        private readonly string _filePath = "menu.json";
+        private readonly string _filePath = "..\\..\\..\\menu.json";
 
 
         public List<MenuItem> LoadMenu()
@@ -22,11 +22,29 @@ namespace WHQ7HJ
             catch(FileNotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
-                return new List<MenuItem>();
+                Environment.Exit(1);
+                return [];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(1);
+                return [];
             }
 
-            
+
         }
+
+        public void DisplayMenu(List<MenuItem> menu)
+        {
+            Console.WriteLine("Étlap");
+            Console.WriteLine("-----");
+            foreach (var item in menu)
+            {
+                Console.WriteLine($"{item.Name} - {item.Price}");
+            }
+        }
+
 
     }
 }

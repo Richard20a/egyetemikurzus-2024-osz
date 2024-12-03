@@ -1,0 +1,12 @@
+[
+  {
+    "CustomerName": "Ash",
+    "MenuItems": [
+      {
+        "Name": "Coca Cola",
+        "Category": "Italok",
+        "Price": 300
+      }
+    ]
+  }
+]
