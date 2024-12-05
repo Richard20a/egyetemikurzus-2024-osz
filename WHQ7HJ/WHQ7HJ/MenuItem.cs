@@ -1,5 +1,5 @@
 ﻿namespace WHQ7HJ
 {
-    public record MenuItem(string Name, string Category, double Price);
+    public record MenuItem(string Name, int Price);
     
 }

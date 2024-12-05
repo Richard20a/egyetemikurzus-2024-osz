@@ -9,15 +9,13 @@ var orders = orderService.LoadOrders();
 while (true)
 {
     Console.Clear();
-    Console.WriteLine("Éttermi Rendeléskezelő");
-    Console.WriteLine("----------------------");
-    Console.WriteLine("1. Étlap megtekintése");
-    Console.WriteLine("2. Rendelés leadása");
-    Console.WriteLine("3. Rendelések megtekintése");
-    Console.WriteLine("4. Rendelések összesítése");
-    Console.WriteLine("5. Kilépés");
+    Console.WriteLine("1. View menu");
+    Console.WriteLine("2. Place an order");
+    Console.WriteLine("3. View orders");
+    Console.WriteLine("4. Summary of orders");
+    Console.WriteLine("5. Exit");
 
-    Console.Write("Válassz egy menüpontot: ");
+    Console.Write("Choose an option: ");
     string choice = Console.ReadLine();
 
     switch (choice)
@@ -29,21 +27,22 @@ while (true)
             Order order = orderService.CreateOrder(menu);
             orders.Add(order);
             orderService.SaveOrders(orders);
-            Console.WriteLine("Rendelés rögzítve!");
+            Console.WriteLine("Order recorded!");
             break;
         case "3":
-           
+            orderService.DisplayOrders(orders);           
             break;
         case "4":
-            
+            orderService.CalculateTotal(orders);
+            orderService.DisplayPopularItems(orders);
             break;
         case "5":
             return;
         default:
-            Console.WriteLine("Érvénytelen választás!");
+            Console.WriteLine("Invalid choice!");
             break;
     }
 
-    Console.WriteLine("Nyomj egy gombot a folytatáshoz...");
+    Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
 }

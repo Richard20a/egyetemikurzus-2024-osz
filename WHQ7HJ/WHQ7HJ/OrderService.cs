@@ -35,8 +35,11 @@ namespace WHQ7HJ
 
         public Order CreateOrder(List<MenuItem> menu)
         {
-            Console.Write("Add meg a neved: ");
-            string customerName = Console.ReadLine() ?? "Ismeretlen";
+            Console.Write("Enter your name: ");
+            string customerName = Console.ReadLine();
+            if (string.IsNullOrEmpty(customerName)){ customerName = "Anonymous customer"; }
+            
+            string orderdate = DateTime.Today.ToString("dd/MM/yyyy");
 
             var orderItems = new List<MenuItem>();
 
@@ -44,7 +47,7 @@ namespace WHQ7HJ
             {
                 Console.Clear();
 
-                Console.WriteLine("Add meg a választott étel nevét (vagy 'OK' a befejezéshez): ");
+                Console.WriteLine("Enter the name of the chosen dish (or 'OK' to finish): ");
                 string input = Console.ReadLine();
 
                 if (input?.ToLower() == "ok")
@@ -57,24 +60,82 @@ namespace WHQ7HJ
                 if (menuItem != null)
                 {
                     orderItems.Add(menuItem);
-                    Console.WriteLine($"{menuItem.Name} hozzáadva a rendeléshez.");
+                    Console.WriteLine($"{menuItem.Name} added to the order.");
                 }
                 else
                 {
-                    Console.WriteLine("Nincs ilyen étel az étlapon!");
+                    Console.WriteLine("There is no such dish on the menu!");
                 }
 
-                Console.WriteLine("Nyomj egy gombot a folytatáshoz...");
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
 
-            return new Order(customerName, orderItems);
+            return new Order(customerName, orderdate, orderItems);
         }
 
         public void SaveOrders(List<Order> orders)
         {
-            string json = JsonSerializer.Serialize(orders, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(_filePath, json);
+            try
+            {
+                string json = JsonSerializer.Serialize(orders, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(_filePath, json);
+            }
+            catch(IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(1);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(1);
+            }
+        }
+
+        public void DisplayOrders(List<Order> orders)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Orders");
+            Console.WriteLine("-----");
+            if(orders.Count == 0)
+            {
+                Console.WriteLine("No order has been received yet.");
+            }
+            else
+            {
+                foreach (var order in orders)
+                {
+                    Console.WriteLine($"Name: {order.CustomerName}, Date: {order.OrderDate}, Order: {string.Join(", ", order.MenuItems.Select(item => item.Name))}");
+                }
+            }
+        }
+
+        public void DisplayPopularItems(List<Order> orders)
+        {
+           if(orders.Count == 0)
+            {
+                Console.WriteLine("No order has been received yet.");
+            }
+            else
+            {
+                var popularItems = orders.SelectMany(order => order.MenuItems)
+                                     .GroupBy(item => item.Name)
+                                     .OrderByDescending(group => group.Count())
+                                     .Select(group => new { Item = group.Key, Count = group.Count() });
+
+                Console.WriteLine("Popular dishes");
+                Console.WriteLine("--------------");
+                foreach (var item in popularItems)
+                {
+                    Console.WriteLine($"{item.Item}: {item.Count} orders");
+                }
+            }
+        }
+
+        public void CalculateTotal(List<Order> orders)
+        {
+            Console.WriteLine($"Total revenue: {orders.Sum(order => order.MenuItems.Sum(item => item.Price))} Ft.");
         }
 
 

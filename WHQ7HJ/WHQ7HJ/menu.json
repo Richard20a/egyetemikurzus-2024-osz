@@ -1,27 +1,38 @@
 [
   {
-    "Name": "Margherita pizza",
-    "Category": "Pizzák",
-    "Price": 2899
+    "Name": "Fried cheese",
+    "Price": 1990
   },
   {
-    "Name": "Pepperoni pizza",
-    "Category": "Pizzák",
-    "Price": 3099
+    "Name": "Forest fruit soup",
+    "Price": 880
   },
   {
-    "Name": "Caesar saláta",
-    "Category": "Saláták",
-    "Price": 750
+    "Name": "Bolognese pork chops",
+    "Price": 2940
   },
   {
-    "Name": "Coca Cola",
-    "Category": "Italok",
-    "Price": 300
+    "Name": "Bean goulash soup",
+    "Price": 1490
   },
   {
-    "Name": "Espresso",
-    "Category": "Kávék",
-    "Price": 350
+    "Name": "Beef stew",
+    "Price": 2350
+  },
+  {
+    "Name": "Spaghetti carbonara",
+    "Price": 1990
+  },
+  {
+    "Name": "Fried catfish fillet",
+    "Price": 2740
+  },
+  {
+    "Name": "Cabbage salad",
+    "Price": 650
+  },
+  {
+    "Name": "Gundel pancakes",
+    "Price": 450
   }
 ]

@@ -37,11 +37,12 @@ namespace WHQ7HJ
 
         public void DisplayMenu(List<MenuItem> menu)
         {
-            Console.WriteLine("Étlap");
+            Console.WriteLine("");
+            Console.WriteLine("Menu");
             Console.WriteLine("-----");
             foreach (var item in menu)
             {
-                Console.WriteLine($"{item.Name} - {item.Price}");
+                Console.WriteLine($"{item.Name} - {item.Price:C}");
             }
         }
 

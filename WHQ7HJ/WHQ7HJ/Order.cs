@@ -1,5 +1,5 @@
 ﻿namespace WHQ7HJ
 {
-    public record Order(string CustomerName, List<MenuItem> MenuItems);
+    public record Order(string CustomerName, string OrderDate, List<MenuItem> MenuItems);
 
 }
